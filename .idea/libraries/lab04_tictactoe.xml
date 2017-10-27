@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="lab04_tictactoe">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/scenebuilder-all-8.3.0-all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lab04-5810450261.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
