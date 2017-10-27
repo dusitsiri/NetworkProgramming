@@ -73,6 +73,7 @@ public class Server extends javax.swing.JFrame {
         }
     }
 
+
     public Server() {
         initComponents();
         ta_chat.setEditable(false);
@@ -109,7 +110,6 @@ public class Server extends javax.swing.JFrame {
                     System.out.println("Server is on.");
                     System.out.println("Waiting for client.");
                 }
-
             }
         });
 
@@ -228,6 +228,7 @@ public class Server extends javax.swing.JFrame {
             }
         });
     }
+
 
     public class ServerStart implements Runnable {
         @Override

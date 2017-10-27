@@ -39,18 +39,20 @@ public class TicTacToeController {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Button button = (Button) event.getSource();
-                Stage stage = (Stage) button.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("../tictactoeViews/StartGame.fxml"));
-                try {
-                    stage.setScene(new Scene(loader.load()));
-                    StartGameController startGameController = loader.getController();
-                    startGameController.setClient(getClient());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                if (client.getConnected()) {
+                    Button button = (Button) event.getSource();
+                    Stage stage = (Stage) button.getScene().getWindow();
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../tictactoeViews/StartGame.fxml"));
+                    try {
+                        stage.setScene(new Scene(loader.load()));
+                        StartGameController startGameController = loader.getController();
+                        startGameController.setClient(getClient());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
-                stage.show();
+                    stage.show();
+                }
             }
         });
     }

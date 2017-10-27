@@ -24,6 +24,10 @@ public class Client extends javax.swing.JFrame {
     PrintWriter writer;
 
 
+    public Boolean getConnected() {
+        return isConnected;
+    }
+
     public Client(){
 
     }
@@ -88,6 +92,7 @@ public class Client extends javax.swing.JFrame {
 
         } else if (isConnected == true)
         {
+
             startGameController.getDisplay().appendText("You are already connected. \n");
         }
     }
