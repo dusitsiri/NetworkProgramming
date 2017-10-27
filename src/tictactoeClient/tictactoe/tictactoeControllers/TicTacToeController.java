@@ -47,14 +47,18 @@ public class TicTacToeController {
                         stage.setScene(new Scene(loader.load()));
                         StartGameController startGameController = loader.getController();
                         startGameController.setClient(getClient());
+                        startGameController.getDisplay().appendText(getUsername().getText()+" is already connected. \n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-
                     stage.show();
                 }
             }
         });
+    }
+
+    public TextField getUsername() {
+        return username;
     }
 
     public Client getClient() {

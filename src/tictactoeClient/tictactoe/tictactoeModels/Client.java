@@ -90,10 +90,6 @@ public class Client extends javax.swing.JFrame {
 
             ListenThread();
 
-        } else if (isConnected == true)
-        {
-
-            startGameController.getDisplay().appendText("You are already connected. \n");
         }
     }
 
@@ -155,11 +151,11 @@ public class Client extends javax.swing.JFrame {
         {
             String[] data;
             String stream, done = "Done", connect = "Connect", disconnect = "Disconnect", chat = "Chat";
-
             try
             {
                 while ((stream = reader.readLine()) != null)
                 {
+                    System.out.println(stream + "first");
                     data = stream.split(":");
                     for (String i : data){
                         System.out.println(i);
