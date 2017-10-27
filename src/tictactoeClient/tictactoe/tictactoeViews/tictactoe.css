@@ -18,3 +18,9 @@
 .button:hover{
     -fx-background-color: #008b8b;
 }
+
+.alertConnect{
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00ff00;
+}

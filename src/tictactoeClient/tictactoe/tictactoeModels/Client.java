@@ -2,7 +2,7 @@ package tictactoeClient.tictactoe.tictactoeModels;
 
 
 import tictactoeClient.tictactoe.tictactoeControllers.StartGameController;
-import tictactoeClient.tictactoe.tictactoeControllers.TicTacToeController;
+import tictactoeClient.tictactoe.tictactoeControllers.LoginController;
 import tictactoeServer.tictactoe.tictactoeModels.Server;
 
 import java.net.*;
@@ -11,10 +11,10 @@ import java.util.*;
 
 public class Client extends javax.swing.JFrame {
     String username, address = "localhost";
-    public static ArrayList<String> users = new ArrayList();
+    private static ArrayList<String> users = new ArrayList<>();
     int port = 2222;
     Boolean isConnected = false;
-    TicTacToeController tictactoeController;
+    LoginController tictactoeController;
     StartGameController startGameController;
     private Thread IncomingReader;
     Client client;
@@ -24,38 +24,30 @@ public class Client extends javax.swing.JFrame {
     PrintWriter writer;
 
 
-    public Boolean getConnected() {
-        return isConnected;
-    }
 
-    public Client(){
-
-    }
-    public void setTictactoeController(TicTacToeController con, Client client)
-    {
+    public void setTictactoeController(LoginController con, Client client) {
         this.tictactoeController = con;
         this.client = client;
+        System.out.println(users + "askfhkadhfkasjfhadfhakshflk");
     }
-    public void setStartGameController(StartGameController con){
+
+    public void setStartGameController(StartGameController con) {
         this.startGameController = con;
     }
 
 
-    public void ListenThread()
-    {
+    public void ListenThread() {
         IncomingReader = new Thread(new IncomingReader());
         IncomingReader.start();
     }
 
 
-    public void userAdd(String data)
-    {
-        client.users.add(data);
+    public void userAdd(String data) {
+        users.add(data);
     }
 
 
-    public void userRemove(String data)
-    {
+    public void userRemove(String data) {
         client.startGameController.getDisplay().appendText(data + " is now offline.\n");
     }
 
@@ -64,16 +56,26 @@ public class Client extends javax.swing.JFrame {
         String[] tempList = new String[(users.size())];
         users.toArray(tempList);
         for (String token : tempList) {
-            //users.append(token + "\n");
+//            writer.append(token);
         }
     }
 
-    public void b_connectActionPerformed(String user, String pass) {
-        if (isConnected == false)
-        {
+    public int getPort() {
+        return port;
+    }
+
+    public Boolean getConnected() {
+        return isConnected;
+    }
+
+    public static ArrayList<String> getUsers() {
+        return users;
+    }
+
+    public void b_connectActionPerformed(String user) {
+        if (isConnected == false) {
             username = user;
-            try
-            {
+            try {
                 sock = new Socket(address, port);
                 InputStreamReader streamreader = new InputStreamReader(sock.getInputStream());
                 reader = new BufferedReader(streamreader);
@@ -82,14 +84,11 @@ public class Client extends javax.swing.JFrame {
                 writer.flush();
                 isConnected = true;
 
-            }
-            catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 tictactoeController.getAlert().setText("Cannot Connect! Try Again.");
             }
 
             ListenThread();
-
         }
     }
 
@@ -98,30 +97,33 @@ public class Client extends javax.swing.JFrame {
         Disconnect();
     }
 
-    public void sendDisconnect()
-    {
+    public void sendDisconnect() {
         String bye = (username + ": :Disconnect");
-        try
-        {
+        try {
             writer.println(bye);
             writer.flush();
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             client.startGameController.getDisplay().appendText("Could not send Disconnect message.\n");
         }
     }
 
 
-    public void Disconnect()
-    {
-        try
-        {
+    public void Disconnect() {
+        try {
             client.startGameController.getDisplay().appendText("Disconnected.\n");
             sock.close();
-        } catch(Exception ex) {
+
+        } catch (Exception ex) {
             client.startGameController.getDisplay().appendText("Failed to disconnect. \n");
         }
+
         isConnected = false;
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
         System.exit(0);
     }
 
@@ -144,44 +146,37 @@ public class Client extends javax.swing.JFrame {
         client.startGameController.getDataIn().requestFocus();
     }
 
-    public class IncomingReader implements Runnable
-    {
-        @Override
-        public void run()
-        {
-            String[] data;
-            String stream, done = "Done", connect = "Connect", disconnect = "Disconnect", chat = "Chat";
-            try
-            {
-                while ((stream = reader.readLine()) != null)
-                {
-                    System.out.println(stream + "first");
-                    data = stream.split(":");
-                    for (String i : data){
-                        System.out.println(i);
-                    }
 
-                    if (data[2].equals(chat))
-                    {
-                        client.startGameController.getDisplay().appendText(data[0] + ": " + data[1] + "\n");
-                    }
-                    else if (data[2].equals(connect))
-                    {
-                        client.startGameController.getDisplay().setText("");
-                        client.userAdd(data[0]);
-                    }
-                    else if (data[2].equals(disconnect))
-                    {
-                        userRemove(data[0]);
-                    }
-                    else if (data[2].equals(done))
-                    {
-                        //users.setText("");
-                        writeUsers();
-                        users.clear();
+    public class IncomingReader implements Runnable {
+        @Override
+        public void run() {
+            String[] data;
+            String stream = null, done = "Done", connect = "Connect", disconnect = "Disconnect", chat = "Chat";
+
+            try {
+                if (getConnected()) {
+                    while ((stream = reader.readLine()) != null) {
+                        System.out.println(stream + "first");
+                        data = stream.split(":");
+                        for (String i : data) {
+                            System.out.println(i);
+                        }
+
+                        if (data[2].equals(chat)) {
+                            client.startGameController.getDisplay().appendText(data[0] + ": " + data[1] + "\n");
+                        } else if (data[2].equals(connect)) {
+                            client.startGameController.getDisplay().setText("");
+                            client.userAdd(data[0]);
+                        } else if (data[2].equals(disconnect)) {
+                            userRemove(data[0]);
+                        } else if (data[2].equals(done)) {
+                            //users.setText("");
+                            writeUsers();
+                            users.clear();
+                        }
                     }
                 }
-            }catch(Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }

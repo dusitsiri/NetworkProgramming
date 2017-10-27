@@ -1,9 +1,7 @@
 package tictactoeServer.tictactoe.tictactoeModels;
 
-import tictactoeClient.tictactoe.tictactoeControllers.TicTacToeController;
 import tictactoeClient.tictactoe.tictactoeModels.Client;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -15,8 +13,9 @@ import java.util.Iterator;
 public class Server extends javax.swing.JFrame {
 
     private ArrayList clientOutputStreams;
-    private ArrayList<String> users;
+    private static ArrayList<String> users;
     private int port = 2222;
+
 
     public class ClientHandler implements Runnable {
         BufferedReader reader;
@@ -45,7 +44,7 @@ public class Server extends javax.swing.JFrame {
                 while ((message = reader.readLine()) != null) {
                     ta_chat.append("Received: " + message + "\n");
                     data = message.split(":");
-                    for (String i : data){
+                    for (String i : data) {
                         System.out.println(i);
                     }
 
@@ -105,7 +104,7 @@ public class Server extends javax.swing.JFrame {
         b_start.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 countStartButton[0]++;
-                if (countStartButton[0] == 1){
+                if (countStartButton[0] == 1) {
                     b_startActionPerformed(evt);
                     System.out.println("Server is on.");
                     System.out.println("Waiting for client.");
@@ -208,7 +207,7 @@ public class Server extends javax.swing.JFrame {
 
     public void b_usersActionPerformed(java.awt.event.ActionEvent evt) {
         ta_chat.append("\n Online users : \n");
-        if (Client.users != null) {
+        if (users != null) {
             for (String current_user : users) {
                 ta_chat.append(current_user);
                 ta_chat.append("\n");
@@ -234,7 +233,8 @@ public class Server extends javax.swing.JFrame {
         @Override
         public void run() {
             clientOutputStreams = new ArrayList();
-            users = Client.users;
+            users = Client.getUsers();
+            System.out.println(users+"USERS IN SERVER");
             try {
                 ServerSocket serverSock = new ServerSocket(port);
                 while (true) {

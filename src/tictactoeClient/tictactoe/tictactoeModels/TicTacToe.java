@@ -3,7 +3,7 @@ package tictactoeClient.tictactoe.tictactoeModels;
 public class TicTacToe {
 
     //turn and player
-    private String player1 = "";
+    private String player = "";
     private String draw = "";
     private boolean checkWin = false;
     private boolean checkWin2 = false;
@@ -14,12 +14,12 @@ public class TicTacToe {
     private int moveCount2 = 0;
 
 
-    public String getPlayer1() {
-        return player1;
+    public String getPlayer() {
+        return player;
     }
 
-    public void setPlayer1(String player1) {
-        this.player1 = player1;
+    public void setPlayer(String player) {
+        this.player = player;
     }
 
     public int getTables(int x, int y) {

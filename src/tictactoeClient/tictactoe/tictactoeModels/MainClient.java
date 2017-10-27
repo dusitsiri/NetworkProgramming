@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import tictactoeClient.tictactoe.tictactoeControllers.StartGameController;
+import tictactoeServer.tictactoe.tictactoeModels.Server;
 
 import java.io.IOException;
 
@@ -21,6 +22,5 @@ public class MainClient extends Application{
 
     public static void main(String[] args) throws IOException {
         launch(args);
-
     }
 }

@@ -73,24 +73,24 @@ public class StartGameController {
     //mouseclick each rectangle
     public void takeTurn(int x, int y, Circle c, Label ex) {
         if (ticTacToeClient.getDraw().equals("") && winner.getText().equals("")) {
-            if (ticTacToeClient.getPlayer1().equals("")) {
+            if (ticTacToeClient.getPlayer().equals("")) {
                 c.setVisible(true);
                 player2Turn();
-            } else if (ticTacToeClient.getPlayer1().equals("play1") && !(c.isVisible())) {
+            } else if (ticTacToeClient.getPlayer().equals("play1") && !(c.isVisible())) {
                 ex.setVisible(true);
                 player1Turn();
             }
-            data(x, y, ticTacToeClient.getPlayer1());
+            data(x, y, ticTacToeClient.getPlayer());
         }
     }
 
     public void player1Turn() {
-        ticTacToeClient.setPlayer1("");
+        ticTacToeClient.setPlayer("");
         turnplayer.setText("Player1 Turn");
     }
 
     public void player2Turn() {
-        ticTacToeClient.setPlayer1("play1");
+        ticTacToeClient.setPlayer("play1");
         turnplayer.setText("Player2 Turn");
     }
 
@@ -129,7 +129,7 @@ public class StartGameController {
     private TextArea display;
     @FXML
     private TextField dataIn;
-
+    private String username;
     private Client client;
 
 
@@ -149,12 +149,9 @@ public class StartGameController {
         client.b_disconnectActionPerformed();
     }
 
-
-
     public TextArea getDisplay() {
         return display;
     }
-
 
     public TextField getDataIn() {
         return dataIn;
