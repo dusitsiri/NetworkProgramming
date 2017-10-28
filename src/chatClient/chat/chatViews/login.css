@@ -1,0 +1,30 @@
+.root{
+    -fx-alignment: CENTER;
+    -fx-background: #808080;
+}
+
+.label{
+    -fx-font-size: 30pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00ff00;
+}
+
+.button{
+    -fx-background-color: #adff2f;
+    -fx-background-radius: 6;
+    -fx-text-fill: #0000cd;
+}
+
+.button:hover{
+    -fx-background-color: #008b8b;
+}
+
+.alertConnect{
+    -fx-font-size: 16pt;
+    -fx-font-weight: bold;
+    -fx-text-fill: #00ff00;
+}
+
+.textField{
+    -fx-prompt-text-fill: gray;
+}
