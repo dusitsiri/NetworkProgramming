@@ -65,15 +65,16 @@ public class ChatController {
     }
 
     public void onActionBtnImage(ActionEvent event) {
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null) {
-            try {
-                Image image = new Image("file:///" + file.getAbsolutePath());
-                client.sendPhoto(image);
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
+//      File file = fileChooser.showOpenDialog(null);if (file != null) {
+//            try {
+//                Image image = new Image("file:///" + file.getAbsolutePath());
+//                client.sendPhoto(image);
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+//        }
+
+
     }
 }
 

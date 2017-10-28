@@ -44,14 +44,14 @@ public class Client extends javax.swing.JFrame {
         IncomingReader = new Thread(new IncomingReader());
         IncomingReader.start();
     }
-    public void sendPhoto(Image image) throws IOException{
-        Message newMessage = new Message();
-        newMessage.setImage(image);
-        newMessage.isImage = true;
-        newMessage.setOrigin(username);
-        writer.println(newMessage);
-        writer.flush();
-    }
+//    public void sendPhoto(Image image) throws IOException{
+//        Message newMessage = new Message();
+//        newMessage.setImage(image);
+//        newMessage.isImage = true;
+//        newMessage.setOrigin(username);
+//        writer.println(newMessage);
+//        writer.flush();
+//    }
 
 
 //
@@ -106,39 +106,39 @@ public class Client extends javax.swing.JFrame {
         }
     }
 
-//    public void b_disconnectActionPerformed() {
-//        sendDisconnect();
-//        Disconnect();
-//    }
-//
-//    public void sendDisconnect() {
-//        String bye = (username + ": :Disconnect");
-//        try {
-//            writer.println(bye);
-//            writer.flush();
-//        } catch (Exception e) {
-//            client.chatController.getDisplay().appendText("Could not send Disconnect message.\n");
-//        }
-//    }
-//
-//
-//    public void Disconnect(){
-//        try {
-//            client.chatController.getDisplay().appendText("Disconnected.\n");
-//            sock.close();
-//
-//        } catch (Exception ex) {
-//            client.chatController.getDisplay().appendText("Failed to disconnect. \n");
-//        }
-//
-//        isConnected = false;
-//
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException ex) {
-//            Thread.currentThread().interrupt();
-//        }
-//    }
+    public void b_disconnectActionPerformed() {
+        sendDisconnect();
+        Disconnect();
+    }
+
+    public void sendDisconnect() {
+        String bye = (username + ": :Disconnect");
+        try {
+            writer.println(bye);
+            writer.flush();
+        } catch (Exception e) {
+            client.chatController.getDisplay().appendText("Could not send Disconnect message.\n");
+        }
+    }
+
+
+    public void Disconnect(){
+        try {
+            client.chatController.getDisplay().appendText("Disconnected.\n");
+            sock.close();
+
+        } catch (Exception ex) {
+            client.chatController.getDisplay().appendText("Failed to disconnect. \n");
+        }
+
+        isConnected = false;
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
 
     public void b_sendActionPerformed(String messages) {
